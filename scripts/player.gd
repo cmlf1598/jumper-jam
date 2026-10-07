@@ -1,0 +1,41 @@
+extends CharacterBody2D
+class_name Player
+
+var speed = 300.0
+
+var gravity = 15.0
+var max_fall_velocity = 1000.0
+
+var viewport_size
+
+func _ready():
+	viewport_size = get_viewport_rect().size
+
+
+func _process(delta):
+	pass
+
+func _physics_process(delta):
+	
+	# Vertical movement
+	velocity.y += gravity
+	
+	if velocity.y > max_fall_velocity:
+		velocity.y = max_fall_velocity
+	
+	# Horizontal movement 
+	var direction = Input.get_axis("move_left", "move_right") # -1 if first one is pressed, +1 if the second one is pressed. 
+	if direction:
+		velocity.x = direction * speed
+	else:
+		# move from velocity.x to zero by the delta amount. 
+		velocity.x = move_toward(velocity.x, 0, speed)
+	
+	move_and_slide()
+	
+	# Teleporting on edges
+	var margin = 20 
+	if global_position.x > viewport_size.x + margin:
+		global_position.x = -margin
+	elif global_position.x < -margin:
+		global_position.x = viewport_size.x + margin
