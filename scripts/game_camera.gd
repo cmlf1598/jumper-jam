@@ -26,13 +26,13 @@ func _ready():
 	rect_shape.set_size(rect_shape_size)
 	destroyer_shape.shape = rect_shape
 	
-func _process(delta):
+func _process(_delta):
 	
 	# camera limit is updated when player position changes
 	if player != null:
 		var limit_distance = 420
 		if limit_bottom > player.global_position.y + limit_distance:
-			limit_bottom = player.global_position.y + limit_distance
+			limit_bottom = int(player.global_position.y + limit_distance)
 	
 	# Destroy platforms 
 	var overlapping_areas = destroyer.get_overlapping_areas()
@@ -46,6 +46,6 @@ func setup_camera(_player: Player):
 	if _player != null:
 		player = _player
 
-func _physics_process(delta):	
+func _physics_process(_delta):	
 	if player != null:
 		global_position.y = player.global_position.y

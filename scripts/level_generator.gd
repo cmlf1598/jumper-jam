@@ -24,7 +24,7 @@ func _ready():
 	start_platform_y = viewport_size.y - (y_distance_between_platforms * 2)
 	generate_level(start_platform_y, true)
 	
-func _process(delta):
+func _process(_delta):
 	# if player is a valid object
 	if player:
 		var py = player.global_position.y
@@ -52,7 +52,7 @@ func generate_level(start_y: float, generate_ground: bool):
 		var max_x_position = viewport_size.x - platform_width
 		var random_x = randf_range(0.0, max_x_position)
 		
-		var location: Vector2
+		var location: Vector2 = Vector2.ZERO
 		location.x = random_x
 		location.y = start_y - (y_distance_between_platforms * i)
 		create_platform(location)
