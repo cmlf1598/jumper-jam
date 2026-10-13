@@ -13,3 +13,5 @@ func _process(delta):
 
 func _on_toggle_console_pressed():
 	console.visible = !console.visible
+	
+	
