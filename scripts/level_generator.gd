@@ -22,8 +22,10 @@ func _ready():
 	viewport_size = get_viewport_rect().size
 	generated_platform_count = 0
 	start_platform_y = viewport_size.y - (y_distance_between_platforms * 2)
-	generate_level(start_platform_y, true)
 	
+func start_generation():
+	generate_level(start_platform_y, true)
+
 func _process(_delta):
 	# if player is a valid object
 	if player:

@@ -5,6 +5,7 @@ extends Node2D
 @onready var parallax1 = $ParallaxBackground/ParallaxLayer
 @onready var parallax2 = $ParallaxBackground/ParallaxLayer2
 @onready var parallax3 = $ParallaxBackground/ParallaxLayer3
+@onready var hud = $UILayer/HUD
 
 var player_scene = preload("res://scenes/player.tscn")
 var player: Player = null 
@@ -29,7 +30,8 @@ func _ready():
 	setup_parallax_layer(parallax2)
 	setup_parallax_layer(parallax3)
 	
-	new_game()
+	hud.visible = false
+	#new_game()
 
 # parallax functions are needed because we do not the dimensions of the screen.
 	
@@ -63,6 +65,7 @@ func new_game():
 	
 	player = player_scene.instantiate()
 	player.global_position = player_spawn_position
+	player.died.connect(_on_player_died) # catch signal from player script
 	add_child(player)
 	
 	camera = camera_scene.instantiate()
@@ -71,8 +74,12 @@ func new_game():
 	
 	if player:
 		level_generator.setup(player) # give the player to the level generator script
+		level_generator.start_generation()
 	
+	hud.visible = true 
 
+func _on_player_died():
+	print("_on_player_died")
 
 
 

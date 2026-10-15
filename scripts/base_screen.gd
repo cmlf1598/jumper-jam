@@ -7,12 +7,14 @@ func _ready():
 	# all the nodes of the group, and disable all buttons
 	get_tree().call_group("buttons", "set_disabled", true)
 
+var fade_dur = 0.5
+
 func appear():
 	visible = true
 	
 	var tween = get_tree().create_tween()
 	# self refers to the title screen control node 
-	tween.tween_property(self, "modulate:a", 1.0, 0.5)
+	tween.tween_property(self, "modulate:a", 1.0, fade_dur)
 	return tween
 	
 	

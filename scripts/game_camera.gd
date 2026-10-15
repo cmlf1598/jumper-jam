@@ -10,6 +10,10 @@ var player: Player = null
 var viewport_size
 
 func _ready():
+	# fixes initial glitch, visible when start button was pressed. 
+	if player != null:
+		global_position.y = player.global_position.y
+		
 	viewport_size = get_viewport_rect().size
 	global_position.x = viewport_size.x / 2 # centers camera on x axis
 	
