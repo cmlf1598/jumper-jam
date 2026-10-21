@@ -20,6 +20,7 @@ var viewport_size: Vector2
 
 var score: int = 0 
 var highscore: int = 0
+var save_file_path = "user://highscore.save"
 
 func _ready():
 	viewport_size = get_viewport_rect().size
@@ -38,7 +39,8 @@ func _ready():
 	hud.visible = false
 	hud.set_score(0)
 	ground_sprite.visible = false 
-	#new_game()
+	
+	load_score()
 
 # parallax functions are needed because we do not the dimensions of the screen.
 	
@@ -100,6 +102,7 @@ func _on_player_died():
 	
 	if score > highscore:
 		highscore = score 
+		save_score()
 		
 	player_died.emit(score, highscore)
 	
@@ -120,5 +123,20 @@ func reset_game():
 		camera.queue_free()
 		camera = null
 
-
+func save_score():
+	# this function creates the file the first time
+	var file = FileAccess.open(save_file_path, FileAccess.WRITE)
+	file.store_var(highscore)
+	print("Saving highscore to disk...")
+	file.close()
+	
+func load_score():
+	if FileAccess.file_exists(save_file_path):
+		var file = FileAccess.open(save_file_path, FileAccess.READ)
+		highscore = file.get_var() #gets vars in the order you save them
+		print("Loaded highscore from file...")
+		file.close()
+	else:
+		print("Save file does not exist, highscore is 0")
+		highscore = 0
 
