@@ -1,5 +1,7 @@
 extends Node2D
 
+signal player_died(score, highscore)
+
 @onready var level_generator = $LevelGenerator
 @onready var ground_sprite = $GroundSprite
 @onready var parallax1 = $ParallaxBackground/ParallaxLayer
@@ -16,6 +18,9 @@ var camera = null
 
 var viewport_size: Vector2
 
+var score: int = 0 
+var highscore: int = 0
+
 func _ready():
 	viewport_size = get_viewport_rect().size
 	
@@ -31,6 +36,7 @@ func _ready():
 	setup_parallax_layer(parallax3)
 	
 	hud.visible = false
+	ground_sprite.visible = false 
 	#new_game()
 
 # parallax functions are needed because we do not the dimensions of the screen.
@@ -61,7 +67,14 @@ func _process(_delta):
 	if Input.is_action_just_pressed("reset"):
 		get_tree().reload_current_scene() # reload current scene 
 	
+	if player:	
+		if score < (viewport_size.y - player.global_position.y):
+			score = (viewport_size.y - player.global_position.y)
+			print(score)
+	
 func new_game():
+	
+	reset_game()
 	
 	player = player_scene.instantiate()
 	player.global_position = player_spawn_position
@@ -77,9 +90,29 @@ func new_game():
 		level_generator.start_generation()
 	
 	hud.visible = true 
+	ground_sprite.visible = true
+	score = 0
 
 func _on_player_died():
-	print("_on_player_died")
+	hud.visible = false
+	player_died.emit(1998, 9981)
+	
+func reset_game():
+	
+	ground_sprite.visible = false
+	
+	level_generator.reset_level()
+	
+	# delete the player
+	if player != null:
+		player.queue_free() 
+		player = null
+		level_generator.player = null 
+	
+	# delete the camera
+	if camera != null:
+		camera.queue_free()
+		camera = null
 
 
 
