@@ -1,6 +1,7 @@
 extends Node2D
 
 signal player_died(score, highscore)
+signal pause_game
 
 @onready var level_generator = $LevelGenerator
 @onready var ground_sprite = $GroundSprite
@@ -38,6 +39,7 @@ func _ready():
 	
 	hud.visible = false
 	hud.set_score(0)
+	hud.pause_game.connect(_on_hud_pause_game)
 	ground_sprite.visible = false 
 	
 	load_score()
@@ -140,3 +142,6 @@ func load_score():
 		print("Save file does not exist, highscore is 0")
 		highscore = 0
 
+func _on_hud_pause_game():
+	# pause signal comes from hud, and then is emitted to main script 
+	pause_game.emit()
