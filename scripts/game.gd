@@ -112,6 +112,7 @@ func reset_game():
 	
 	ground_sprite.visible = false
 	hud.set_score(0)
+	hud.visible = false #hide the HUD
 	level_generator.reset_level()
 	
 	# delete the player
@@ -124,6 +125,8 @@ func reset_game():
 	if camera != null:
 		camera.queue_free()
 		camera = null
+		
+	
 
 func save_score():
 	# this function creates the file the first time

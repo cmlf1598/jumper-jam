@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-signal start_game
+signal start_game # signal that goes to the main script
 signal delete_level
 
 @onready var console = $Debug/ConsoleLog
@@ -36,12 +36,18 @@ func _on_button_pressed(button):
 			await(get_tree().create_timer(0.5).timeout)
 			start_game.emit()
 		"PauseRetry":
-			change_screen(game_over_screen)
-			print("Pause retry")
+			change_screen(null)
+			await(get_tree().create_timer(0.75).timeout)
+			get_tree().paused = false
+			start_game.emit()
 		"PauseBack":
-			print("Pause back")
+			change_screen(title_screen)
+			get_tree().paused = false
+			delete_level.emit()
 		"PauseClose":
-			print("Pause close")
+			change_screen(null)
+			await(get_tree().create_timer(0.75).timeout)
+			get_tree().paused = false
 		"GameOverRetry":
 			change_screen(null)
 			await(get_tree().create_timer(0.5).timeout)
