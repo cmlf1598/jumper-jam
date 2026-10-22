@@ -30,6 +30,7 @@ func register_buttons():
 
 # When there clicked signal is emitted, this function is called
 func _on_button_pressed(button):
+	SoundFX.play("Click")
 	match button.name:
 		"TitlePlay":
 			change_screen(null)

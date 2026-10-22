@@ -68,6 +68,7 @@ func _physics_process(_delta):
 func jump():
 	velocity.y = jump_velocity
 	MyUtility.add_log_msg("Player jumped!")
+	SoundFX.play("Jump")
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	die()
@@ -78,3 +79,4 @@ func die():
 		# Disable collission shape 
 		cshape.set_deferred("disabled", true)
 		died.emit()
+		SoundFX.play("Fall")
