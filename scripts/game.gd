@@ -23,6 +23,8 @@ var score: int = 0
 var highscore: int = 0
 var save_file_path = "user://highscore.save"
 
+var new_skin_unlocked = true 
+
 func _ready():
 	viewport_size = get_viewport_rect().size
 	
@@ -86,6 +88,9 @@ func new_game():
 	player.global_position = player_spawn_position
 	player.died.connect(_on_player_died) # catch signal from player script
 	add_child(player)
+	
+	if new_skin_unlocked == true:
+		player.use_new_skin()
 	
 	camera = camera_scene.instantiate()
 	camera.setup_camera(player)
