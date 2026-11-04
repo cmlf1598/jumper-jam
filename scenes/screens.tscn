@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dtpbxndvsvxw2"]
+[gd_scene load_steps=7 format=3 uid="uid://dtpbxndvsvxw2"]
 
 [ext_resource type="Script" path="res://scripts/screens.gd" id="1_md3nd"]
 [ext_resource type="Texture2D" uid="uid://c7ycxdicvw7ve" path="res://assets/textures/ui/gear.png" id="2_3820m"]
 [ext_resource type="PackedScene" uid="uid://cu1g32yxcqrya" path="res://scenes/title_screen.tscn" id="2_qxcfx"]
 [ext_resource type="PackedScene" uid="uid://buaiq4puajntv" path="res://scenes/pause_screen.tscn" id="3_i43sy"]
 [ext_resource type="PackedScene" uid="uid://bhypp5huskn61" path="res://scenes/game_over_screen.tscn" id="4_w46et"]
+[ext_resource type="PackedScene" uid="uid://bgyea7yc24sju" path="res://scenes/shop_screen.tscn" id="5_t5lv1"]
 
 [node name="Screens" type="CanvasLayer"]
 process_mode = 3
@@ -14,10 +15,10 @@ script = ExtResource("1_md3nd")
 [node name="TitleScreen" parent="." instance=ExtResource("2_qxcfx")]
 
 [node name="PauseScreen" parent="." instance=ExtResource("3_i43sy")]
-visible = false
 
 [node name="GameOverScreen" parent="." instance=ExtResource("4_w46et")]
-visible = false
+
+[node name="ShopScreen" parent="." instance=ExtResource("5_t5lv1")]
 
 [node name="Debug" type="Control" parent="."]
 z_index = 4096

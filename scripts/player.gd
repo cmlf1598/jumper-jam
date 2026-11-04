@@ -89,5 +89,6 @@ func use_new_skin():
 	fall_anim_name = "fall_red"
 	jump_anim_name = "jump_red"
 	
+	# character used to quickly change skins at the beginning 
 	if sprite:
 		sprite.texture = preload("res://assets/textures/character/Skin2Idle.png")

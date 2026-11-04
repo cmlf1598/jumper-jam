@@ -13,6 +13,9 @@ func _ready():
 	
 	game.player_died.connect(_on_game_player_died) # signal from "game" script
 	game.pause_game.connect(_on_game_pause_game)
+	
+	# IAP signals
+	screens.purchase_skin.connect(_on_screens_purchase_skin)
 
 func _on_window_event(event):
 	# When you change apps, and the game keeps running on the background
@@ -47,3 +50,8 @@ func _on_game_player_died(score, highscore):
 func _on_game_pause_game():
 	get_tree().paused = true
 	screens.pause_game()
+
+func _on_screens_purchase_skin():
+	if game.new_skin_unlocked == false:
+		game.new_skin_unlocked = true
+
