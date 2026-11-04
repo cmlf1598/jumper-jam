@@ -1,2 +1,5 @@
 # Godot 4+ specific ignores
 .godot/
+
+# Android build template (regenerate via Project > Install Android Build Template)
+android/
